@@ -1,6 +1,5 @@
 import numpy as np
-
-from metrics import rmsle
+from sklearn.model_selection import KFold
 
 
 def get_confidence_interval(model, row, confidence=0.95):
