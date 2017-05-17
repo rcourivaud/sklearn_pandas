@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='sklearn_pandas',
+    name='sklearn_pandas_helper',
     version='0.1',
     packages=[''],
     url='',

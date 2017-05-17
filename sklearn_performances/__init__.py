@@ -1,8 +1,10 @@
+import matplotlib as plt
 import numpy as np
 from sklearn.model_selection import KFold
 from tqdm import tqdm
 
-def get_confidence_interval(model, row, confidence=0.95):
+
+def get_confidence_ensemble_models(model, row, confidence=0.95):
     confidence_mapping = {
         0.80: 1.25,
         0.90: 1.645,
@@ -32,11 +34,23 @@ def get_confidence_interval(model, row, confidence=0.95):
     }
 
 
-def get_perfs(model, X, y, classification=False):
+def _make_graphs_confidence(predictions, conf_low, conf_high):
+    fig, (ax1, ax2) = plt.subplots(ncols=2)
+    fig.set_size_inches(16, 6)
+    ax1.hist(predictions, bins=len(predictions) / 10);
+    ax1.axvline(conf_low)
+    ax1.axvline(conf_high)
+    ax2.scatter(x=range(len(predictions)), y=predictions)
+    ax2.axhline(conf_low)
+    ax2.axhline(conf_high)
+    return ax1, ax2
+
+
+def get_perfs(model, X, y, classification=False, n_splits=5, shuffle=True):
     predictions = []
     trues = []
     predict_proba = []
-    kf = KFold(n_splits=6)
+    kf = KFold(n_splits=n_splits, shuffle=shuffle)
     for train_index, test_index in tqdm(kf.split(X)):
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y[train_index], y[test_index]
