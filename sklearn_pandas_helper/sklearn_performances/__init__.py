@@ -76,14 +76,14 @@ def get_perfs(model, X, y, classification=False, n_splits=5, shuffle=True):
     return dict_
 
 
-def get_interpretation_for_trees(model, row):
+def get_interpretation_for_trees(model, row, names, n_bests):
     explanation = treeinterpreter.predict(model, row)
     explanation_sorted_with_columns = list(
-        sorted([(elt1, elt2) for elt1, elt2 in zip(explanation[2][0], row.columns)], key=lambda x: np.abs(x[0]),
+        sorted([(elt1, elt2) for elt1, elt2 in zip(explanation[2][0], names)], key=lambda x: np.abs(x[0]),
                reverse=True))
     return {
-        "contribution": [elt[0] for elt in explanation_sorted_with_columns][0:20],
-        "columns": [elt[1] for elt in explanation_sorted_with_columns][0:20]
+        "contribution": [elt[0] for elt in explanation_sorted_with_columns][0:n_bests],
+        "columns": [elt[1] for elt in explanation_sorted_with_columns][0:n_bests]
     }
 
 
