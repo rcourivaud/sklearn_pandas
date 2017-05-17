@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.model_selection import KFold
-
+from tqdm import tqdm
 
 def get_confidence_interval(model, row, confidence=0.95):
     confidence_mapping = {
