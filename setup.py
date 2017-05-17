@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
     name='sklearn_pandas_helper',
-    version='0.1',
-    packages=[''],
+    version='',
+    packages=['sklearn_pandas_helper', 'sklearn_pandas_helper.sklearn_performances'],
     url='',
     license='',
     author='Raphaël Courivaud',
@@ -13,3 +13,4 @@ setup(
         "numpy", "pandas", "scikit_learn", 'tqdm'
     ]
 )
+
